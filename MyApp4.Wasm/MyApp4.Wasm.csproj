@@ -10,6 +10,10 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <PropertyGroup>
+    <WasmShellEnableEmscriptenWindows>true</WasmShellEnableEmscriptenWindows>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Content Include="Assets\SplashScreen.png" />
   </ItemGroup>
@@ -24,6 +28,7 @@
     <LinkerDescriptor Include="LinkerConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+
     <!--
 		This item group is required by the project template because of the
 		new SDK-Style project, otherwise some files are not added automatically.
