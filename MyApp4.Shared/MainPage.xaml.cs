@@ -26,45 +26,58 @@ namespace MyApp4
     public sealed partial class MainPage : Page
     {
 
-        public static DependencyProperty PointerMovedProperty = DependencyProperty.Register(nameof(PointerMoved), typeof(string), typeof(MainPage), new PropertyMetadata(default(string)));
-        public static DependencyProperty PointerPressedProperty = DependencyProperty.Register(nameof(PointerPressed), typeof(string), typeof(MainPage), new PropertyMetadata(default(string)));
+        public static DependencyProperty PointerMovedValueProperty = 
+            DependencyProperty.Register(nameof(PointerMovedValue), typeof(string), 
+                typeof(MainPage), new PropertyMetadata(default(string)));
+
+        public static DependencyProperty PointerPressedValueProperty = 
+            DependencyProperty.Register(nameof(PointerPressedValue), typeof(string), typeof(MainPage),
+                new PropertyMetadata(default(string)));
 
         SKPoint _point;
         bool _draw = false;
+        SKColor _color = SKColors.Red;
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        public string PointerMoved
+        public string PointerMovedValue
         {
-            get => (string)GetValue(PointerMovedProperty);
-            set => SetValue(PointerMovedProperty, value);
+            get => (string)GetValue(PointerMovedValueProperty);
+            set => SetValue(PointerMovedValueProperty, value);
         }
 
-        public string PointerPressed
+        public string PointerPressedValue
         {
-            get => (string)GetValue(PointerPressedProperty);
-            set => SetValue(PointerPressedProperty, value);
+            get => (string)GetValue(PointerPressedValueProperty);
+            set => SetValue(PointerPressedValueProperty, value);
         }
 
         private void Rectangle_PoiterMoved(object sender, PointerRoutedEventArgs e)
         {
-            PointerMoved = e.GetCurrentPoint(Workbench).Position.ToString();
+            PointerMovedValue = e.GetCurrentPoint(Workbench).Position.ToString();
         }
 
         private void Rectangle_PoiterPressed(object sender, PointerRoutedEventArgs e)
         {
-
-
-
             var pointer = e.GetCurrentPoint(Workbench).Position;
-            PointerPressed = pointer.ToString();
+            PointerPressedValue = pointer.ToString();
             _point.X = (float)pointer.X;
             _point.Y = (float)pointer.Y;
 
             _draw = true;
             Workbench.Invalidate();
+        }
+
+        private void BtnRed_Clicked(object sender, RoutedEventArgs e)
+        {
+            _color = SKColors.Red;
+        }
+
+        private void BtnBlue_Clicked(object sender, RoutedEventArgs e)
+        {
+            _color = SKColors.Blue;
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
@@ -81,9 +94,10 @@ namespace MyApp4
             var paint = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = SKColors.Red
+                Color = _color
                 
             };
+
             if (_draw)
                 canvas.DrawCircle(_point, 10, paint);
         }

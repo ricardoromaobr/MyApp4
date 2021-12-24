@@ -14,15 +14,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="{x:Bind PointerMoved, Mode=OneWay}" />
-            <TextBlock Text="{x:Bind PointerPressed, Mode=OneWay}"  Foreground="Blue"/>
+            <TextBlock Text="{x:Bind PointerMovedValue, Mode=OneWay}" />
+            <TextBlock Text="{x:Bind PointerPressedValue, Mode=OneWay}"  Foreground="Blue"/>
+            <Button Content="Red" Background="Red" Click="BtnRed_Clicked"  x:Name="BtnRed" />
+            <Button Content="Blue" Background="Blue"  x:Name="BtnBlue" Click="BtnBlue_Clicked"/>
         </StackPanel>
 
         <skia:SKXamlCanvas   
                    PointerMoved="Rectangle_PoiterMoved" 
                    PointerPressed="Rectangle_PoiterPressed"
                    PaintSurface="OnPaintSurface"
-                   x:Name="Workbench" 
+                   x:Name="Workbench"
+            Background="Transparent"
                           Grid.Row="1"/>
 
     </Grid>
